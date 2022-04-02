@@ -17,7 +17,7 @@ void questions(){
 	cin >> learnRate;
 	cout << "What level of accuracy? (Range: 1-inf, reccommended above 20, lower is better)" << endl;
 	cin >> (accuracyVar);
-	accuracyVar = accuracyVar;
+	accuracyVar = accuracyVar/100;
 
 }
 
@@ -48,19 +48,13 @@ void findEquationDriver(double learning_rate, double accVar){
 		reg_vals[i] = regRunner;
 	}
 	for(int i = 0; i<11; i++){
-		errorValA = ((reg_vals[i]-real_vals[i])*i*i) + errorValA;
+		errorValA = ((reg_vals[i]-real_vals[i])*i) + errorValA;
 		errorValB = ((reg_vals[i]-real_vals[i])*i) + errorValB;
         errorValC = ((reg_vals[i]-real_vals[i])) + errorValC;
 	}
-	if((abs(errorValA)>accVar) || (abs(errorValB)>accVar) || (abs(errorValC)>accVar)){
+	if((abs(errorValA)>accVar)){
 		if((abs(errorValA)<=abs(errorPrevA)) && abs(errorValA)>accVar){
 			a_coefficient = a_coefficient - (errorValA * (1.00/11.00) * learning_rate);
-		}
-		if((abs(errorValB)<=abs(errorPrevB)) && abs(errorValB)>accVar){
-			b_coefficient = b_coefficient - (errorValB * (1.00/11.00) * learning_rate);
-		}
-		if((abs(errorValC)<=abs(errorPrevC)) && abs(errorValC)>accVar){
-			c_coefficient = c_coefficient - (errorValC * (1.00/11.00) * learning_rate);
 		}
 		errorPrevA = errorValA;
 		errorPrevB = errorValB;
@@ -68,7 +62,7 @@ void findEquationDriver(double learning_rate, double accVar){
 		preva = a_coefficient;
 		prevb = b_coefficient;
         prevc = c_coefficient;
-        cout << errorPrevA << endl;
+        cout << a_coefficient << endl;
 		findEquationDriver(learnRate, accVar);
 	}
 	else{
