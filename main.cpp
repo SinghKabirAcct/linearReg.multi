@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <math.h>
 using namespace std;
 
 double real_vals[11];
@@ -20,9 +21,9 @@ void questions(){
 
 }
 
-double  return_reg_equation_vals(double m, double b, double reg_vals[11], int iVal){
+double  return_reg_equation_vals(double a, double b, double c, double reg_vals[11], int iVal){
 	for(int i = 0; i<11; i++){
-		reg_vals[i] = (m * i) + b;
+		reg_vals[i] = (a * pow(i, 2)) + b*i + c;
 	}
 	return reg_vals[iVal];
 }
@@ -39,8 +40,9 @@ double prevc = 0;
 
 void findEquationDriver(double learning_rate, double accVar){
 	double reg_vals[11];
-	double errorValM = 0;
+	double errorValA = 0;
 	double errorValB = 0;
+    double errorValC = 0;
 	for(int i = 0; i<11; i++){
 		double regRunner = return_reg_equation_vals(m_coefficient, b_coefficient, reg_vals, i);
 		reg_vals[i] = regRunner;
