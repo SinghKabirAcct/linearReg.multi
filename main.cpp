@@ -27,12 +27,15 @@ double  return_reg_equation_vals(double m, double b, double reg_vals[11], int iV
 	return reg_vals[iVal];
 }
 
-double m_coefficient = 0;
+double a_coefficient = 0;
 double b_coefficient = 0;
-double errorPrevM = numeric_limits<double>::infinity();
+double c_coefficient = 0;
+double errorPrevA = numeric_limits<double>::infinity();
 double errorPrevB = numeric_limits<double>::infinity();
-double prevm = 0;
+double errorPrevC = numeric_limits<double>::infinity();
+double preva = 0;
 double prevb = 0;
+double prevc = 0;
 
 void findEquationDriver(double learning_rate, double accVar){
 	double reg_vals[11];
