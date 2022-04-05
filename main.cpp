@@ -39,45 +39,46 @@ double prevb = 0;
 double prevc = 0;
 
 void findEquationDriver(double learning_rate, double accVar){
-	double reg_vals[11];
-	double errorValA = 0;
-	double errorValB = 0;
+    double reg_vals[11];
+    double errorValA = 0;
+    double errorValB = 0;
     double errorValC = 0;
-	for(int i = 0; i<11; i++){
-		double regRunner = return_reg_equation_vals(a_coefficient, b_coefficient, c_coefficient, reg_vals, i);
-		reg_vals[i] = regRunner;
-	}
-	for(int i = 0; i<11; i++){
-		errorValA = ((reg_vals[i]-real_vals[i])*i) + errorValA;
-		errorValB = ((reg_vals[i]-real_vals[i])) + errorValB;
-        errorValC = ((reg_vals[i]-real_vals[i])/i) + errorValC;
-	}
-	if((abs(errorValA)>accVar) || (abs(errorValB)>accVar) || (abs(errorValC)>accVar)){
-		if((abs(errorValA)<=abs(errorPrevA)) && abs(errorValA)>accVar){
-			a_coefficient = a_coefficient - (errorValA * (1.00/11.00) * learning_rate);
-		}
-		if((abs(errorValB)<=abs(errorPrevB)) && abs(errorValB)>accVar){
-			b_coefficient = b_coefficient - (errorValB * (1.00/11.00) * learning_rate);
-		}
-		if((abs(errorValC)<=abs(errorPrevC)) && abs(errorValC)>accVar){
-			c_coefficient = c_coefficient - (errorValC * (1.00/11.00) * learning_rate);
-		}
-		errorPrevA = errorValA;
-		errorPrevB = errorValB;
-        errorPrevC = errorValC;
-		preva = a_coefficient;
-		prevb = b_coefficient;
-        prevc = c_coefficient;
-        cout << errorPrevA << endl;
-		findEquationDriver(learnRate, accVar);
-	}
-	else{
-		cout << preva << "x^2 + " << b_coefficient << "x + " << c_coefficient << endl;
-	}
+    for(int i = 0; i<11; i++){
+      double regRunner = return_reg_equation_vals(a_coefficient, b_coefficient, c_coefficient, reg_vals, i);
+      reg_vals[i] = regRunner;
+    }
+    for(int i = 0; i<11; i++){
+      errorValA = ((reg_vals[i]-real_vals[i])*i) + errorValA;
+      errorValB = ((reg_vals[i]-real_vals[i])) + errorValB;
+      errorValC = ((reg_vals[i]-real_vals[i])/i) + errorValC;
+    }
+    if((abs(errorValA)>accVar) || (abs(errorValB)>accVar)){
+      if((abs(errorValA)<=abs(errorPrevA)) && abs(errorValA)>accVar){
+	a_coefficient = a_coefficient - (errorValA * (1.00/11.00) * learning_rate);
+      }
+      if((abs(errorValB)<=abs(errorPrevB)) && abs(errorValB)>accVar){
+	b_coefficient = b_coefficient - (errorValB * (1.00/11.00) * learning_rate);
+      }
+      if((abs(errorValC)<=abs(errorPrevC)) && abs(errorValC)>accVar){
+	c_coefficient = c_coefficient - (errorValC * (1.00/11.00) * learning_rate);
+      }
+      errorPrevA = errorValA;
+      errorPrevB = errorValB;
+      errorPrevC = errorValC;
+      preva = a_coefficient;
+      prevb = b_coefficient;
+      prevc = c_coefficient;
+      cout << ((abs(errorPrevA) + abs(errorPrevB)) / 2) << endl;
+      findEquationDriver(learnRate, accVar);
+    }
+    else{
+      cout << preva << "x^2 + " << b_coefficient << "x + " << c_coefficient << endl;
+      cout << ((abs(errorPrevA) + abs(errorPrevB)) / 2) << endl;
+    }
 }
 
 int main(){
-	questions();
-	findEquationDriver(learnRate, accuracyVar);
-	return 0;
+  questions();
+  findEquationDriver(learnRate, accuracyVar);
+  return 0;
 }
